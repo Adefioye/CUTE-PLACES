@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { FETCH_ALL_POSTS, CREATE_POST } from "./types";
+import {
+  FETCH_ALL_POSTS,
+  CREATE_POST,
+  UPDATE_POST,
+  DELETE_POST,
+} from "./types";
 
 const URL = "http://localhost:5000/posts";
 
@@ -10,7 +15,7 @@ export const getPosts = () => async (dispatch) => {
 
     dispatch({ type: FETCH_ALL_POSTS, payload: response.data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
@@ -20,6 +25,26 @@ export const createPost = (newPost) => async (dispatch) => {
 
     dispatch({ type: CREATE_POST, payload: response.data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+  }
+};
+
+export const updatePost = (id, updatedPost) => async (dispatch) => {
+  try {
+    const response = await axios.patch(`${URL}/${id}`, updatedPost);
+
+    dispatch({ type: UPDATE_POST, payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`${URL}/${id}`);
+
+    dispatch({ type: DELETE_POST, payload: id });
+  } catch (error) {
+    console.log(error);
   }
 };

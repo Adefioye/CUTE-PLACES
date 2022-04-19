@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./styles";
-import { createPost } from "../../actions";
+import { createPost, updatePost } from "../../actions";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -15,21 +15,41 @@ const Form = () => {
     selectedFile: "",
   });
   const dispatch = useDispatch();
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((post) => post._id === currentId) : null
+  );
+
+  useEffect(() => {
+    if (post) {
+      setPostData(post);
+    }
+  }, [post]);
 
   const classes = useStyles();
 
-  const { creator, title, message, tags, selectedFile } = postData;
+  const { creator, title, message, tags } = postData;
+
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData));
-  };
 
-  const handleChange = (e) => {
-    setPostData({ ...postData, [e.name]: e.value });
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+    clear();
   };
-
-  const clear = () => {};
 
   return (
     <Paper className={classes.paper}>
@@ -39,7 +59,9 @@ const Form = () => {
         className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Create a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Create"} a Memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
