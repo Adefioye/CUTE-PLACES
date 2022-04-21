@@ -14,14 +14,14 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
-import { deletePost } from "../../../actions";
+import { deletePost, likePost } from "../../../actions";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleDeletePost = (postId) => {
-    dispatch(deletePost(postId));
+  const handleLikePost = (postId) => {
+    dispatch(likePost(postId));
   };
 
   return (
@@ -41,36 +41,38 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           style={{ color: "white" }}
           size="small"
-          onClick={() => {
-            setCurrentId(post._id);
-          }}
+          onClick={() => setCurrentId(post._id)}
         >
-          <MoreHorizIcon fontSize="default" />
+          <MoreHorizIcon fontSize="medium" />
         </Button>
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag}`)}
+          {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
         {post.title}
       </Typography>
       <CardContent>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography variant="body2" color="textSecondary" component="p">
           {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => handleLikePost(post._id)}
+        >
           <ThumbUpAltIcon fontSize="small" />
-          Like
+          &nbsp; Like &nbsp;
           {post.likeCount}
         </Button>
         <Button
           size="small"
           color="primary"
-          onClick={() => handleDeletePost(post._id)}
+          onClick={() => dispatch(deletePost(post._id))}
         >
           <DeleteIcon fontSize="small" />
           Delete

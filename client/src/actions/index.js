@@ -5,6 +5,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  LIKE_POST,
 } from "./types";
 
 const URL = "http://localhost:5000/posts";
@@ -44,6 +45,16 @@ export const deletePost = (id) => async (dispatch) => {
     await axios.delete(`${URL}/${id}`);
 
     dispatch({ type: DELETE_POST, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const response = await axios.patch(`${URL}/${id}/likePost`);
+
+    dispatch({ type: LIKE_POST, payload: response.data });
   } catch (error) {
     console.log(error);
   }
