@@ -31,8 +31,6 @@ export const signIn = async (req, res) => {
 };
 
 export const signUp = async (req, res) => {
-  console.log(req.body);
-
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
   try {

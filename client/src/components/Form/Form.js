@@ -8,7 +8,6 @@ import { createPost, updatePost } from "../../actions/postActions";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -19,6 +18,8 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((post) => post._id === currentId) : null
   );
 
+  const user = JSON.parse(localStorage.getItem("profile"));
+
   useEffect(() => {
     if (post) {
       setPostData(post);
@@ -27,7 +28,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const classes = useStyles();
 
-  const { creator, title, message, tags } = postData;
+  const { title, message, tags } = postData;
 
   const clear = () => {
     setCurrentId(null);
@@ -44,12 +45,25 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.profileInfo?.name })
+      );
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.profileInfo?.name }));
     }
     clear();
   };
+
+  if (!user?.profileInfo?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign In and create a cute place and then like other's cute
+          places
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -60,18 +74,8 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
-          {currentId ? "Editing" : "Create"} a Memory
+          {currentId ? "Editing" : "Create"} a Cute Place
         </Typography>
-        <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          value={creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-          fullWidth
-        />
         <TextField
           name="title"
           variant="outlined"
