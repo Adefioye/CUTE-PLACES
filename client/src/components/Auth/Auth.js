@@ -16,6 +16,15 @@ import useStyles from "./styles";
 import Input from "./Input";
 import Icon from "./Icon";
 import { AUTH } from "../../actions/types";
+import { signIn, signUp } from "../../actions/authActions";
+
+const initialFormState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const classes = useStyles();
@@ -24,16 +33,33 @@ const Auth = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = () => {};
+  const [formData, setFormData] = useState(initialFormState);
 
-  const handleChange = () => {};
+  console.log(isSignUp);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(formData);
+
+    if (isSignUp) {
+      dispatch(signUp(formData, history));
+    } else {
+      dispatch(signIn(formData, history));
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const switchMode = () => {
+    setFormData(initialFormState);
     setIsSignUp((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {

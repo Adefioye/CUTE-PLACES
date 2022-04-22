@@ -1,6 +1,5 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import { useDispatch } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
