@@ -65,6 +65,7 @@ const Auth = () => {
   const googleSuccess = async (res) => {
     const profileInfo = res?.profileObj;
     const token = res?.tokenId;
+    console.log(profileInfo);
 
     try {
       dispatch({ type: AUTH, payload: { profileInfo, token } });
