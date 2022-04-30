@@ -1,25 +1,34 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
+import PostDetails from "./components/PostDetails/PostDetails";
 
 import useStyles from "./styles";
 
 const App = () => {
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("profile"));
   return (
-    <Container maxWidth="lg" className={classes.mainContainer}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Container maxWidth="xl">
         <Navbar />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/auth" exact component={Auth} />
+          <Route path="/" exact component={() => <Redirect to="/posts" />} />
+          <Route path="/posts" exact component={Home} />
+          <Route path="/posts/search" exact component={Home} />
+          <Route path="/posts/:id" exact component={PostDetails} />
+          <Route
+            path="/auth"
+            exact
+            component={() => (!user ? <Auth /> : <Redirect to="/posts" />)}
+          />
         </Switch>
-      </BrowserRouter>
-    </Container>
+      </Container>
+    </BrowserRouter>
   );
 };
 
