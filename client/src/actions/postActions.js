@@ -6,6 +6,7 @@ import {
   UPDATE_POST,
   DELETE_POST,
   LIKE_POST,
+  FETCH_POSTS_BY_SEARCH,
 } from "./types";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -21,11 +22,25 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const response = await API.get("/posts");
+    const response = await API.get(`/posts?page=${page}`);
 
     dispatch({ type: FETCH_ALL_POSTS, payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+  try {
+    const response = await API.get(
+      `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
+        searchQuery.tags
+      }`
+    );
+
+    dispatch({ type: FETCH_POSTS_BY_SEARCH, payload: response.data });
   } catch (error) {
     console.log(error);
   }

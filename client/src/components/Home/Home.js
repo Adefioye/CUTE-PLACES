@@ -14,7 +14,7 @@ import ChipInput from "material-ui-chip-input";
 
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
-import { getPosts } from "../../actions/postActions";
+import { getPosts, getPostsBySearch } from "../../actions/postActions";
 import Pagination from "../Pagination/Pagination";
 import useStyles from "./styles";
 
@@ -33,21 +33,22 @@ const Home = () => {
   const [tags, setTags] = useState([]);
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [currentId, dispatch]);
 
   const searchPost = () => {
-    if (search.trim()) {
+    if (search.trim() || tags) {
       // dispatch --> Search post
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      history.push(`/posts/search?searchQuery=${search}&tags=${tags}`);
     } else {
       history.push("/");
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 13) {
-      // Make a search
+    if (e.key === "Enter") {
       searchPost();
     }
   };
@@ -104,7 +105,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination />
+              <Pagination page={page} />
             </Paper>
           </Grid>
         </Grid>
