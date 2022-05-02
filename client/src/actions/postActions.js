@@ -7,6 +7,8 @@ import {
   DELETE_POST,
   LIKE_POST,
   FETCH_POSTS_BY_SEARCH,
+  START_LOADING,
+  END_LOADING,
 } from "./types";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -24,9 +26,13 @@ API.interceptors.request.use((req) => {
 
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const response = await API.get(`/posts?page=${page}`);
 
     dispatch({ type: FETCH_ALL_POSTS, payload: response.data });
+
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -34,6 +40,8 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const response = await API.get(
       `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
         searchQuery.tags
@@ -41,6 +49,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     );
 
     dispatch({ type: FETCH_POSTS_BY_SEARCH, payload: response.data });
+
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -48,9 +58,13 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (newPost) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const response = await API.post("/posts", newPost);
 
     dispatch({ type: CREATE_POST, payload: response.data });
+
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
