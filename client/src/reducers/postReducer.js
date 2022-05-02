@@ -1,4 +1,5 @@
 import {
+  FETCH_POST,
   FETCH_ALL_POSTS,
   CREATE_POST,
   UPDATE_POST,
@@ -9,7 +10,10 @@ import {
   END_LOADING,
 } from "../actions/types";
 
-const postReducer = (state = { isLoading: true, posts: [] }, action) => {
+const postReducer = (
+  state = { isLoading: true, posts: [], post: null },
+  action
+) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -22,6 +26,8 @@ const postReducer = (state = { isLoading: true, posts: [] }, action) => {
         currentPage: action.payload.currentPage,
         numberOfPages: action.payload.numberOfPages,
       };
+    case FETCH_POST:
+      return { ...state, post: action.payload };
     case FETCH_POSTS_BY_SEARCH:
       return { ...state, posts: action.payload };
     case CREATE_POST:

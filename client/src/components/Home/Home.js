@@ -38,7 +38,7 @@ const Home = () => {
   // }, [currentId, dispatch]);
 
   const searchPost = () => {
-    if (search.trim() || tags) {
+    if (search.trim() || tags.length) {
       // dispatch --> Search post
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       history.push(`/posts/search?searchQuery=${search}&tags=${tags}`);

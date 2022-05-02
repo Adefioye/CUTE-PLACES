@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  FETCH_POST,
   FETCH_ALL_POSTS,
   CREATE_POST,
   UPDATE_POST,
@@ -23,6 +24,20 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
+
+export const getPost = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const response = await API.get(`/posts/${id}`);
+
+    dispatch({ type: FETCH_POST, payload: response.data });
+
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getPosts = (page) => async (dispatch) => {
   try {
