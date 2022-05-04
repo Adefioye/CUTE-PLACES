@@ -39,7 +39,10 @@ const Post = ({ post, setCurrentId }) => {
     }
   };
 
-  const openPost = () => history.push(`/posts/${post._id}`);
+  const openPost = (e) => {
+    e.stopPropagation();
+    history.push(`/posts/${post._id}`);
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -87,7 +90,10 @@ const Post = ({ post, setCurrentId }) => {
             <Button
               style={{ color: "white" }}
               size="small"
-              onClick={() => setCurrentId(post._id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentId(post._id);
+              }}
             >
               <MoreHorizIcon fontSize="medium" />
             </Button>

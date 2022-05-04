@@ -11,6 +11,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import useStyles from "./styles";
 import { getPost, getPostsBySearch } from "../../actions/postActions";
+import CommentSection from "./CommentSection";
 
 const PostDetails = () => {
   const classes = useStyles();
@@ -70,7 +71,7 @@ const PostDetails = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
-          {/* <CommentSection post={post} /> */}
+          <CommentSection post={post} />
           <Divider style={{ margin: "20px 0" }} />
         </div>
         <div className={classes.imageSection}>
