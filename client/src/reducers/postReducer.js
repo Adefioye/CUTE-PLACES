@@ -8,6 +8,7 @@ import {
   FETCH_POSTS_BY_SEARCH,
   START_LOADING,
   END_LOADING,
+  COMMENT_POST,
 } from "../actions/types";
 
 const postReducer = (
@@ -39,6 +40,15 @@ const postReducer = (
         posts: state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         ),
+      };
+    case COMMENT_POST:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) return action.payload;
+
+          return post;
+        }),
       };
     case DELETE_POST:
       return {

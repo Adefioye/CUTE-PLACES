@@ -10,6 +10,7 @@ import {
   FETCH_POSTS_BY_SEARCH,
   START_LOADING,
   END_LOADING,
+  COMMENT_POST,
 } from "./types";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
@@ -112,6 +113,18 @@ export const likePost = (id) => async (dispatch) => {
     const response = await API.patch(`/posts/${id}/likePost`);
 
     dispatch({ type: LIKE_POST, payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const response = await API.post(`/posts/${id}/commentPost`, { value });
+
+    dispatch({ type: COMMENT_POST, payload: response.data });
+
+    return response.data.comments;
   } catch (error) {
     console.log(error);
   }
