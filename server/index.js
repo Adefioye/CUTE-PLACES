@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 import path from "path";
 
 import placeRoutes from "./routes/placeRoutes.js";
@@ -10,6 +12,9 @@ import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // SET UP DATABASE CONNECTION
 async function main() {
@@ -34,12 +39,12 @@ app.use("/user", userRoutes);
 const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-
   app.use(express.static("app/client/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "app", "client", "build", "index.html"));
+    res.sendFile(
+      path.resolve(__dirname, "app", "client", "build", "index.html")
+    );
   });
 }
 
