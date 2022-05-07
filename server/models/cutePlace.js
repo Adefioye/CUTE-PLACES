@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const postSchema = Schema({
+const placeSchema = Schema({
   title: String,
   message: String,
   name: String,
@@ -23,6 +23,6 @@ const postSchema = Schema({
   },
 });
 
-const PostMessage = mongoose.model("PostMessage", postSchema);
+const CutePlace = mongoose.model("CutePlace", placeSchema);
 
-export default PostMessage;
+export default CutePlace;
