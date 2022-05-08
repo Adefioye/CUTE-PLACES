@@ -1,6 +1,8 @@
 # Cute Places in Nigeria App
 
-![](app/client/src/images/cute-place-app.png)
+`Visit the website on:` **https://radiant-hamlet-16591.herokuapp.com/places**
+
+![](server/app/client/src/images/cute-place-app.png)
 
 - [Outline of project](#cute-places-in-nigeria-app)
   - [1. Project Description](#project-description)
