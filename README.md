@@ -1,6 +1,6 @@
 # Cute Places in Nigeria App
 
-`Visit the website on:` **https://radiant-hamlet-16591.herokuapp.com/places**
+`Visit the website on:` **https://radiant-hamlet-16591.herokuapp.com**
 
 ![](server/app/client/src/images/cute-place-app.png)
 
@@ -41,4 +41,4 @@ The `Cute Places` App is an application that allows authenticated users to creat
 
 ## Conclusion
 
-This project gave me ample opportunity to learn a variety of technolgies. I was able to use React, Redux and Node simaultaneously. It have me more understanding on how to manage redux store in a relatively complex React App. I was able to use 2 authentication technolgies for users of the app. However, there are still some areas that can be improved upon such as `Adding Real time chat app amongst users`, `Making image uploads more scalable using Cloudinary or S3` and a host of other things.
+This project gave me ample opportunity to learn a variety of technolgies. I was able to use React, Redux and Node simaultaneously. It gave me more understanding on how to manage redux store in a relatively complex React App. I was able to use 2 authentication technolgies for users of the app. However, there are still some areas that can be improved upon such as `Adding Real time chat app amongst users`, `Making image uploads more scalable using Cloudinary or S3` and a host of other things.
