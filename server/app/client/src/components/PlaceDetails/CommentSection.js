@@ -15,7 +15,7 @@ const CommentSection = ({ place }) => {
   const commentsRef = useRef();
 
   const handleCommentClick = async () => {
-    const finalComment = `${user.profileInfo.name}: ${comment}`;
+    const finalComment = `${user?.profileInfo.name}: ${comment}`;
 
     const newComments = await dispatch(commentPlace(finalComment, place._id));
 
@@ -39,7 +39,7 @@ const CommentSection = ({ place }) => {
           ))}
           <div ref={commentsRef} />
         </div>
-        {user.profileInfo.name && (
+        {user?.profileInfo.name && (
           <div style={{ width: "70%" }}>
             <Typography gutterButtom variant="h6">
               Write a Comment

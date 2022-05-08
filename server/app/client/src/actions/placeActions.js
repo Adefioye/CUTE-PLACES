@@ -13,9 +13,12 @@ import {
   COMMENT_PLACE,
 } from "./types";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({
+  baseURL: "https://radiant-hamlet-16591.herokuapp.com",
+});
 
-// const URL = "http://localhost:5000/places";
+// const URL = "http://localhost:5000";
+// https://radiant-hamlet-16591.herokuapp.com
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${

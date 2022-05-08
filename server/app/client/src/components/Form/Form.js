@@ -32,7 +32,6 @@ const Form = ({ currentId, setCurrentId }) => {
     }
   }, [place]);
 
-
   const clear = () => {
     setCurrentId(null);
     setPlaceData({
@@ -104,7 +103,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Tags (comma-separated)"
           value={tags}
           onChange={(e) =>
             setPlaceData({ ...placeData, tags: e.target.value.split(",") })

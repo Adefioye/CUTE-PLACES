@@ -87,7 +87,7 @@ const Home = () => {
                 value={tags}
                 onAdd={handleAddTag}
                 onDelete={handleDeleteTag}
-                label="Search Tags(comma separated)"
+                label="Search Tags"
                 variant="outlined"
               />
               <Typography variant="body2" color="secondary">

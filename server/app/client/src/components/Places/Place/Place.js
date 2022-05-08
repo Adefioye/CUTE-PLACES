@@ -11,7 +11,8 @@ import {
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+// import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import EditIcon from "@material-ui/icons/Edit";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -95,7 +96,8 @@ const Place = ({ place, setCurrentId }) => {
                 setCurrentId(place._id);
               }}
             >
-              <MoreHorizIcon fontSize="medium" />
+              <EditIcon fontSize="medium" />
+              {/* <MoreHorizIcon fontSize="medium" /> */}
             </Button>
           </div>
         )}
