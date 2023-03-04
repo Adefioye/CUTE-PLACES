@@ -14,11 +14,12 @@ import {
 } from "./types";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://cute-place-app.onrender.com",
 });
 
 // const URL = "http://localhost:5000";
 // https://radiant-hamlet-16591.herokuapp.com
+// https://cute-place-app.onrender.com
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${
