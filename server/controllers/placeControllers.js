@@ -25,7 +25,6 @@ export const getPlaces = async (req, res) => {
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
-
     res.status(200).json({
       data: places,
       currentPage: Number(page),

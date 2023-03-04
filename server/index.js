@@ -18,7 +18,10 @@ const __dirname = dirname(__filename);
 
 // SET UP DATABASE CONNECTION
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 try {
@@ -38,19 +41,21 @@ app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("app/client/build"));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("app/client/build"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "app", "client", "build", "index.html")
-    );
-  });
-}
-
+//   app.get("*", (req, res) => {
+//     res.sendFile(
+//       path.resolve(__dirname, "app", "client", "build", "index.html")
+//     );
+//   });
+// }
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT: ${PORT}`);
 });
 
 // Working on fixing connectionto database
+
+// "dev": "concurrently \"npm start --prefix app/client\" \"npm run server\" ",
+// "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix app/client && npm run build --prefix app/client"

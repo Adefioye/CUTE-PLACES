@@ -14,7 +14,7 @@ import {
 } from "./types";
 
 const API = axios.create({
-  baseURL: "https://radiant-hamlet-16591.herokuapp.com",
+  baseURL: "http://localhost:5000",
 });
 
 // const URL = "http://localhost:5000";
