@@ -3,7 +3,7 @@ import axios from "axios";
 import { AUTH } from "./types";
 
 const API = axios.create({
-  baseURL: "https://tiny-gaufre-f55cd2.netlify.app",
+  baseURL: "https://cute-place-app.onrender.com",
 });
 
 API.interceptors.request.use((req) => {
