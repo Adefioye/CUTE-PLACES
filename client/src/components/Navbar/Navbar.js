@@ -13,24 +13,17 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const token = user?.token;
+
 
   const handleLogout = useCallback(() => {
     dispatch({ type: LOGOUT });
-    setUser(null);
     history.push("/");
+    setUser(null);
   }, [dispatch, history]);
 
-  // () => {
-  //   dispatch({ type: LOGOUT });
-  //   setUser(null);
-  //   history.push("/");
-  // };
-
   useEffect(() => {
-
-    if (!token) return 
 
     if (token) {
       const decodedToken = decode(token);
@@ -41,7 +34,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location, token, handleLogout]);
+  }, [pathname, handleLogout, token]);
 
   return (
     <AppBar position="static" color="inherit" className={classes.appBar}>

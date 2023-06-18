@@ -3,11 +3,8 @@ import axios from "axios";
 import { AUTH } from "./types";
 
 const API = axios.create({
-  baseURL: "https://radiant-hamlet-16591.herokuapp.com",
+  baseURL: "https://tiny-gaufre-f55cd2.netlify.app",
 });
-
-// http://localhost:5000
-// https://radiant-hamlet-16591.herokuapp.com
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
